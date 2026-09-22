@@ -1,103 +1,125 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Image as ImageIcon, LogOut, Settings, Users, Bell, Search } from 'lucide-react';
+import { LayoutDashboard, Images, LogOut, Menu, X } from 'lucide-react';
+import { logout } from '../services/authService';
+
+const navItems = [
+  { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+  { name: 'Gallery', path: '/gallery', icon: Images },
+];
+
+/** Gold ring monogram — echoes the website's ornamental circle motif. */
+function Monogram() {
+  return (
+    <span className="grid size-10 shrink-0 place-items-center rounded-full border border-gold/50 text-goldlight">
+      <span className="grid size-7 place-items-center rounded-full border border-gold/30">
+        <span className="font-serif text-lg leading-none text-goldlight">N</span>
+      </span>
+    </span>
+  );
+}
+
+const navLinkClass = ({ isActive }) =>
+  `flex items-center gap-3 rounded-md border px-3 py-2.5 text-sm tracking-[0.14em] uppercase transition-colors ${
+    isActive
+      ? 'border-gold/40 bg-gold/10 text-goldlight'
+      : 'border-transparent text-cream/60 hover:border-gold/25 hover:bg-gold/5 hover:text-cream'
+  }`;
 
 const AdminLayout = () => {
   const navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const close = () => setMobileOpen(false);
+    window.addEventListener('resize', close);
+    return () => window.removeEventListener('resize', close);
+  }, []);
 
   const handleLogout = () => {
+    setMobileOpen(false);
+    logout();
     navigate('/login');
   };
 
-  const navItems = [
-    { name: 'Dashboard', path: '/', icon: <LayoutDashboard size={20} /> },
-    { name: 'Gallery', path: '/gallery', icon: <ImageIcon size={20} /> },
-    { name: 'Users', path: '/users', icon: <Users size={20} /> },
-    { name: 'Settings', path: '/settings', icon: <Settings size={20} /> },
-  ];
+  const sidebar = (
+    <div className="flex h-full flex-col bg-walnut">
+      {/* Logo / wordmark */}
+      <div className="flex h-16 items-center gap-3 border-b border-gold/15 px-6">
+        <Monogram />
+        <div className="leading-tight">
+          <div className="font-serif text-lg tracking-[0.22em] text-goldlight">NRITHYA</div>
+          <div className="text-[10px] tracking-[0.42em] text-cream/50">DEGULA</div>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-6">
+        {navItems.map((item) => (
+          <NavLink key={item.name} to={item.path} end className={navLinkClass}>
+            <item.icon size={17} strokeWidth={1.5} />
+            {item.name}
+          </NavLink>
+        ))}
+      </nav>
+
+      {/* Logout */}
+      <div className="border-t border-gold/15 p-4">
+        <button
+          onClick={handleLogout}
+          className="flex w-full items-center gap-3 rounded-md border border-transparent px-3 py-2.5 text-sm tracking-[0.14em] text-cream/60 uppercase transition-colors hover:border-gold/25 hover:bg-gold/5 hover:text-cream"
+        >
+          <LogOut size={17} strokeWidth={1.5} />
+          Logout
+        </button>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="flex h-screen bg-slate-900 text-slate-100 overflow-hidden">
-      {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col z-20">
-        <div className="h-16 flex items-center px-6 border-b border-slate-800">
-          <div className="flex items-center gap-2 text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white">
-              N
-            </div>
-            Nithya
-          </div>
-        </div>
+    <div className="flex h-screen overflow-hidden bg-espresso text-cream">
+      {/* Desktop sidebar */}
+      <aside className="hidden w-60 shrink-0 border-r border-gold/15 lg:block">{sidebar}</aside>
 
-        <div className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.name}
-              to={item.path}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
-                  isActive
-                    ? 'bg-purple-600/10 text-purple-400 border border-purple-500/20'
-                    : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
-                }`
-              }
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <div
+            className="absolute inset-0 bg-espresso/80 animate-fade-in"
+            onClick={() => setMobileOpen(false)}
+          />
+          <aside className="absolute top-0 left-0 h-full w-64 border-r border-gold/15 shadow-2xl animate-fade-in">
+            {sidebar}
+          </aside>
+        </div>
+      )}
+
+      {/* Main column */}
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/* Top bar */}
+        <header className="flex h-14 shrink-0 items-center justify-between border-b border-gold/15 bg-walnut px-4 sm:px-6">
+          <div className="flex items-center gap-3">
+            <button
+              className="grid size-9 place-items-center rounded-md border border-gold/25 text-cream/80 lg:hidden"
+              onClick={() => setMobileOpen((open) => !open)}
+              aria-label="Toggle navigation"
             >
-              {item.icon}
-              <span className="font-medium">{item.name}</span>
-            </NavLink>
-          ))}
-        </div>
-
-        <div className="p-4 border-t border-slate-800">
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-3 px-3 py-2.5 w-full text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-xl transition-all"
-          >
-            <LogOut size={20} />
-            <span className="font-medium">Logout</span>
-          </button>
-        </div>
-      </aside>
-
-      {/* Main Content Area */}
-      <main className="flex-1 flex flex-col h-full relative">
-        {/* Top Header */}
-        <header className="h-16 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 flex items-center justify-between px-8 z-10 sticky top-0">
-          <div className="flex items-center bg-slate-800/50 border border-slate-700/50 rounded-full px-4 py-1.5 w-96 focus-within:ring-2 focus-within:ring-purple-500/50 focus-within:border-purple-500 transition-all">
-            <Search size={16} className="text-slate-400 mr-2" />
-            <input
-              type="text"
-              placeholder="Search anything..."
-              className="bg-transparent border-none outline-none text-sm text-slate-200 w-full placeholder:text-slate-500"
-            />
-          </div>
-
-          <div className="flex items-center gap-4">
-            <button className="relative p-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-full transition-colors">
-              <Bell size={20} />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-purple-500 rounded-full border border-slate-900"></span>
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
-            <div className="flex items-center gap-3 border-l border-slate-800 pl-4 ml-2">
-              <div className="text-right hidden md:block">
-                <div className="text-sm font-medium text-slate-200">Admin User</div>
-                <div className="text-xs text-slate-500">admin@nithya.com</div>
-              </div>
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 p-0.5">
-                <img
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"
-                  alt="Avatar"
-                  className="w-full h-full rounded-full bg-slate-900"
-                />
-              </div>
-            </div>
+            <span className="font-serif text-base tracking-[0.18em] text-cream/80 uppercase">
+              Nrithya Degula <span className="text-gold/60">·</span> Admin
+            </span>
           </div>
+          <span className="hidden text-xs tracking-[0.3em] text-cream/40 uppercase sm:block">
+            Gallery Management
+          </span>
         </header>
 
-        {/* Page Content */}
-        <div className="flex-1 overflow-auto bg-slate-950 p-8">
+        {/* Page content */}
+        <main className="flex-1 overflow-y-auto">
           <Outlet />
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 };

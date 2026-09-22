@@ -1,83 +1,103 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, Mail, ArrowRight } from 'lucide-react';
+import { Lock, Mail } from 'lucide-react';
+import { login } from '../services/authService';
 
 const Login = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate login delay
-    setTimeout(() => {
-      setIsLoading(false);
+    setError(null);
+    try {
+      await login(email.trim(), password);
       navigate('/');
-    }, 800);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed. Please try again.');
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background glowing orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px]" />
+    <div className="grid min-h-screen place-items-center bg-espresso p-4">
+      <div className="w-full max-w-md animate-fade-up">
+        {/* Wordmark */}
+        <div className="mb-10 text-center">
+          <span className="mx-auto mb-6 grid size-14 place-items-center rounded-full border border-gold/50">
+            <span className="grid size-10 place-items-center rounded-full border border-gold/30">
+              <span className="font-serif text-2xl text-goldlight">N</span>
+            </span>
+          </span>
+          <h1 className="font-serif text-4xl tracking-[0.14em] text-goldlight">NRITHYA DEGULA</h1>
+          <p className="mt-2 text-xs tracking-[0.5em] text-cream/45 uppercase">School of Dance · Admin</p>
+        </div>
 
-      <div className="w-full max-w-md relative z-10">
-        <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 shadow-2xl">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">
-              Welcome Back
-            </h1>
-            <p className="text-slate-400 text-sm">Sign in to access your admin dashboard</p>
+        <div className="gold-divider mb-8">
+          <span className="size-1.5 rotate-45 bg-gold/60" />
+        </div>
+
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div>
+            <label htmlFor="email" className="mb-2 block text-xs tracking-[0.25em] text-cream/55 uppercase">
+              Email
+            </label>
+            <div className="relative">
+              <Mail
+                size={17}
+                className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-gold/60"
+              />
+              <input
+                id="email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@nrithyadegula.com"
+                className="gold-ring w-full rounded-md border border-gold/25 bg-cocoa/60 py-3 pr-4 pl-11 text-sm text-cream transition-colors placeholder:text-cream/30 focus:border-gold/60"
+              />
+            </div>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300 ml-1">Email Address</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                  <Mail size={18} />
-                </div>
-                <input
-                  type="email"
-                  className="w-full pl-10 pr-4 py-3 bg-slate-900/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-slate-100 transition-all placeholder:text-slate-600"
-                  placeholder="admin@nithya.com"
-                  required
-                />
-              </div>
+          <div>
+            <label htmlFor="password" className="mb-2 block text-xs tracking-[0.25em] text-cream/55 uppercase">
+              Password
+            </label>
+            <div className="relative">
+              <Lock
+                size={17}
+                className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-gold/60"
+              />
+              <input
+                id="password"
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="gold-ring w-full rounded-md border border-gold/25 bg-cocoa/60 py-3 pr-4 pl-11 text-sm text-cream transition-colors placeholder:text-cream/30 focus:border-gold/60"
+              />
             </div>
+          </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300 ml-1">Password</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                  <Lock size={18} />
-                </div>
-                <input
-                  type="password"
-                  className="w-full pl-10 pr-4 py-3 bg-slate-900/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-slate-100 transition-all placeholder:text-slate-600"
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
-            </div>
+          {error && <p className="text-xs text-red-300/90">{error}</p>}
 
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white rounded-xl font-medium shadow-lg shadow-purple-500/25 transition-all flex items-center justify-center group disabled:opacity-70"
-            >
-              {isLoading ? (
-                <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  Sign In
-                  <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
-            </button>
-          </form>
-        </div>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="gold-ring w-full rounded-md bg-gold py-3 text-sm font-medium tracking-[0.22em] text-espresso uppercase transition-all hover:bg-goldlight disabled:opacity-60"
+          >
+            {isLoading ? 'Signing in…' : 'Sign In'}
+          </button>
+        </form>
+
+        <p className="mt-10 text-center text-xs text-cream/35">
+          Nrithya Degula School of Dance · Gallery Management
+        </p>
       </div>
     </div>
   );
