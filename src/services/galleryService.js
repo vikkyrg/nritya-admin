@@ -19,7 +19,18 @@
 
 import { getAdminToken, logout } from './authService';
 
-const API_BASE_URL = import.meta.env.DEV ? '' : import.meta.env.VITE_API_BASE_URL;
+const resolveApiBaseUrl = () => {
+  const configured = import.meta.env.VITE_API_BASE_URL;
+  const isLocalhostUrl = (value) => /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?\/?$/i.test(value || '');
+
+  if (!configured || isLocalhostUrl(configured)) {
+    return import.meta.env.DEV ? '' : window.location.origin;
+  }
+
+  return configured.replace(/\/$/, '');
+};
+
+const API_BASE_URL = resolveApiBaseUrl();
 const GALLERY_URL = `${API_BASE_URL}/api/gallery`;
 
 function authHeaders() {
