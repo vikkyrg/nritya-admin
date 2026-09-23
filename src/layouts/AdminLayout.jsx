@@ -8,17 +8,6 @@ const navItems = [
   { name: 'Gallery', path: '/gallery', icon: Images },
 ];
 
-/** Gold ring monogram — echoes the website's ornamental circle motif. */
-function Monogram() {
-  return (
-    <span className="grid size-10 shrink-0 place-items-center rounded-full border border-gold/50 text-goldlight">
-      <span className="grid size-7 place-items-center rounded-full border border-gold/30">
-        <span className="font-serif text-lg leading-none text-goldlight">N</span>
-      </span>
-    </span>
-  );
-}
-
 const navLinkClass = ({ isActive }) =>
   `flex items-center gap-3 rounded-md border px-3 py-2.5 text-sm tracking-[0.14em] uppercase transition-colors ${
     isActive
@@ -45,12 +34,8 @@ const AdminLayout = () => {
   const sidebar = (
     <div className="flex h-full flex-col bg-walnut">
       {/* Logo / wordmark */}
-      <div className="flex h-16 items-center gap-3 border-b border-gold/15 px-6">
-        <Monogram />
-        <div className="leading-tight">
-          <div className="font-serif text-lg tracking-[0.22em] text-goldlight">NRITHYA</div>
-          <div className="text-[10px] tracking-[0.42em] text-cream/50">DEGULA</div>
-        </div>
+      <div className="flex h-16 items-center justify-center border-b border-gold/15 px-6">
+        <img src="/logo.png" alt="Nrithya Degula" className="h-12 w-auto object-contain" />
       </div>
 
       {/* Navigation */}
@@ -106,6 +91,7 @@ const AdminLayout = () => {
             >
               {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
+            <img src="/logo.png" alt="Nrithya Degula" className="h-8 w-auto object-contain lg:hidden" />
             <span className="font-serif text-base tracking-[0.18em] text-cream/80 uppercase">
               Nrithya Degula <span className="text-gold/60">·</span> Admin
             </span>

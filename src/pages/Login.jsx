@@ -28,11 +28,7 @@ const Login = () => {
       <div className="w-full max-w-md animate-fade-up">
         {/* Wordmark */}
         <div className="mb-10 text-center">
-          <span className="mx-auto mb-6 grid size-14 place-items-center rounded-full border border-gold/50">
-            <span className="grid size-10 place-items-center rounded-full border border-gold/30">
-              <span className="font-serif text-2xl text-goldlight">N</span>
-            </span>
-          </span>
+          <img src="/logo.png" alt="Nrithya Degula" className="mx-auto mb-6 h-16 w-auto object-contain" />
           <h1 className="font-serif text-4xl tracking-[0.14em] text-goldlight">NRITHYA DEGULA</h1>
           <p className="mt-2 text-xs tracking-[0.5em] text-cream/45 uppercase">School of Dance · Admin</p>
         </div>
