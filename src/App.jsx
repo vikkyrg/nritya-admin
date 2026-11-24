@@ -4,6 +4,7 @@ import AdminLayout from './layouts/AdminLayout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Gallery from './pages/Gallery';
+import Enquiries from './pages/Enquiries';
 import { isAdminAuthenticated } from './services/authService';
 
 /** Blocks admin routes for visitors without a stored session token. */
@@ -30,8 +31,9 @@ function App() {
           }
         >
           <Route index element={<Dashboard />} />
+          <Route path="enquiries" element={<Enquiries />} />
           <Route path="gallery" element={<Gallery />} />
-          {/* Fallback for other sidebar items currently not implemented */}
+          {/* Fallback for other sidebar items */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

@@ -1,23 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Images, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Images, Inbox, LogOut, Menu, X } from 'lucide-react';
 import { logout } from '../services/authService';
-
-const navItems = [
-  { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-  { name: 'Gallery', path: '/gallery', icon: Images },
-];
-
-const navLinkClass = ({ isActive }) =>
-  `flex items-center gap-3 rounded-md border px-3 py-2.5 text-sm tracking-[0.14em] uppercase transition-colors ${
-    isActive
-      ? 'border-gold/40 bg-gold/10 text-goldlight'
-      : 'border-transparent text-cream/60 hover:border-gold/25 hover:bg-gold/5 hover:text-cream'
-  }`;
+import { getEnquiries } from '../services/enquiryService';
 
 const AdminLayout = () => {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [newEnquiryCount, setNewEnquiryCount] = useState(0);
+
+  // Poll or fetch new enquiry count
+  useEffect(() => {
+    let isMounted = true;
+    const fetchBadge = async () => {
+      try {
+        const data = await getEnquiries({ limit: 1, status: 'New' });
+        if (isMounted && data?.stats?.New !== undefined) {
+          setNewEnquiryCount(data.stats.New);
+        }
+      } catch (err) {
+        // Silently ignore background badge errors
+      }
+    };
+
+    fetchBadge();
+    const interval = setInterval(fetchBadge, 15000); // Check every 15s
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   useEffect(() => {
     const close = () => setMobileOpen(false);
@@ -31,6 +43,19 @@ const AdminLayout = () => {
     navigate('/login');
   };
 
+  const navItems = [
+    { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+    { name: 'Enquiries', path: '/enquiries', icon: Inbox, badge: newEnquiryCount },
+    { name: 'Gallery', path: '/gallery', icon: Images },
+  ];
+
+  const navLinkClass = ({ isActive }) =>
+    `flex items-center justify-between rounded-md border px-3 py-2.5 text-sm tracking-[0.14em] uppercase transition-colors ${
+      isActive
+        ? 'border-gold/40 bg-gold/10 text-goldlight'
+        : 'border-transparent text-cream/60 hover:border-gold/25 hover:bg-gold/5 hover:text-cream'
+    }`;
+
   const sidebar = (
     <div className="flex h-full flex-col bg-walnut">
       {/* Logo / wordmark */}
@@ -42,8 +67,15 @@ const AdminLayout = () => {
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-6">
         {navItems.map((item) => (
           <NavLink key={item.name} to={item.path} end className={navLinkClass}>
-            <item.icon size={17} strokeWidth={1.5} />
-            {item.name}
+            <div className="flex items-center gap-3">
+              <item.icon size={17} strokeWidth={1.5} />
+              {item.name}
+            </div>
+            {Boolean(item.badge && item.badge > 0) && (
+              <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-gold px-1.5 text-[10px] font-bold text-espresso shadow">
+                {item.badge}
+              </span>
+            )}
           </NavLink>
         ))}
       </nav>
@@ -97,7 +129,7 @@ const AdminLayout = () => {
             </span>
           </div>
           <span className="hidden text-xs tracking-[0.3em] text-cream/40 uppercase sm:block">
-            Gallery Management
+            Management Portal
           </span>
         </header>
 
