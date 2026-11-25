@@ -156,9 +156,13 @@ export default function Enquiries() {
             <span className="text-[11px] font-semibold uppercase tracking-wider">Total</span>
             <Inbox size={16} className="text-gold/80" />
           </div>
-          <p className="mt-3 font-serif text-3xl font-bold text-parchment">
-            {loading ? 'â€”' : stats.total}
-          </p>
+          <div className="mt-3 h-9 flex items-center">
+            {loading && !enquiries.length ? (
+              <div className="h-7 w-14 animate-pulse rounded bg-gold/15" />
+            ) : (
+              <p className="font-serif text-3xl font-bold text-parchment">{stats.total}</p>
+            )}
+          </div>
         </div>
 
         {/* New */}
@@ -167,9 +171,13 @@ export default function Enquiries() {
             <span className="text-[11px] font-semibold uppercase tracking-wider">New</span>
             <Clock size={16} />
           </div>
-          <p className="mt-3 font-serif text-3xl font-bold text-amber-200">
-            {loading ? 'â€”' : stats.New}
-          </p>
+          <div className="mt-3 h-9 flex items-center">
+            {loading && !enquiries.length ? (
+              <div className="h-7 w-12 animate-pulse rounded bg-amber-400/15" />
+            ) : (
+              <p className="font-serif text-3xl font-bold text-amber-200">{stats.New}</p>
+            )}
+          </div>
         </div>
 
         {/* Contacted */}
@@ -178,9 +186,13 @@ export default function Enquiries() {
             <span className="text-[11px] font-semibold uppercase tracking-wider">Contacted</span>
             <Phone size={16} />
           </div>
-          <p className="mt-3 font-serif text-3xl font-bold text-sky-200">
-            {loading ? 'â€”' : stats.Contacted}
-          </p>
+          <div className="mt-3 h-9 flex items-center">
+            {loading && !enquiries.length ? (
+              <div className="h-7 w-12 animate-pulse rounded bg-sky-400/15" />
+            ) : (
+              <p className="font-serif text-3xl font-bold text-sky-200">{stats.Contacted}</p>
+            )}
+          </div>
         </div>
 
         {/* Converted */}
@@ -189,9 +201,13 @@ export default function Enquiries() {
             <span className="text-[11px] font-semibold uppercase tracking-wider">Converted</span>
             <CheckCheck size={16} />
           </div>
-          <p className="mt-3 font-serif text-3xl font-bold text-emerald-200">
-            {loading ? 'â€”' : stats.Converted}
-          </p>
+          <div className="mt-3 h-9 flex items-center">
+            {loading && !enquiries.length ? (
+              <div className="h-7 w-12 animate-pulse rounded bg-emerald-400/15" />
+            ) : (
+              <p className="font-serif text-3xl font-bold text-emerald-200">{stats.Converted}</p>
+            )}
+          </div>
         </div>
 
         {/* Closed */}
@@ -200,9 +216,13 @@ export default function Enquiries() {
             <span className="text-[11px] font-semibold uppercase tracking-wider">Closed</span>
             <XCircle size={16} />
           </div>
-          <p className="mt-3 font-serif text-3xl font-bold text-cream/70">
-            {loading ? 'â€”' : stats.Closed}
-          </p>
+          <div className="mt-3 h-9 flex items-center">
+            {loading && !enquiries.length ? (
+              <div className="h-7 w-12 animate-pulse rounded bg-cream/15" />
+            ) : (
+              <p className="font-serif text-3xl font-bold text-cream/70">{stats.Closed}</p>
+            )}
+          </div>
         </div>
       </div>
 
@@ -364,12 +384,12 @@ export default function Enquiries() {
 
                     {/* Age */}
                     <td className="py-3.5 px-4 text-cream/60">
-                      {enquiry.studentAge ? `${enquiry.studentAge}y` : 'â€”'}
+                      {enquiry.studentAge ? `${enquiry.studentAge}y` : '—'}
                     </td>
 
                     {/* Branch */}
                     <td className="py-3.5 px-4 text-cream/75">
-                      {enquiry.preferredBranch || 'â€”'}
+                      {enquiry.preferredBranch || '—'}
                     </td>
 
                     {/* Date */}
@@ -380,7 +400,7 @@ export default function Enquiries() {
                             day: 'numeric',
                             year: 'numeric',
                           })
-                        : 'â€”'}
+                        : '—'}
                     </td>
 
                     {/* Status */}

@@ -43,7 +43,7 @@ export default function EnquiryDetailsModal({ enquiry, onClose, onStatusUpdated 
         dateStyle: 'medium',
         timeStyle: 'short',
       })
-    : 'â€”';
+    : '—';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -103,7 +103,7 @@ export default function EnquiryDetailsModal({ enquiry, onClose, onStatusUpdated 
               Call {enquiry.phone}
             </a>
             <a
-              href={`mailto:${enquiry.email}?subject=Regarding your enquiry at Nrithya Degula`}
+              href={`mailto:${enquiry.email}?subject=Regarding your enquiry at Nritya Degula`}
               className="flex items-center justify-center gap-2 rounded-md border border-gold/40 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-goldlight transition-all hover:bg-gold/10"
             >
               <Mail size={14} />
@@ -133,7 +133,7 @@ export default function EnquiryDetailsModal({ enquiry, onClose, onStatusUpdated 
               </span>
               <p className="text-cream/90 break-words">
                 <a
-                  href={`mailto:${enquiry.email}?subject=Regarding your enquiry at Nrithya Degula`}
+                  href={`mailto:${enquiry.email}?subject=Regarding your enquiry at Nritya Degula`}
                   className="hover:text-goldlight hover:underline transition-colors"
                 >
                   {enquiry.email}

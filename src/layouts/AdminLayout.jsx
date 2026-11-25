@@ -60,7 +60,7 @@ const AdminLayout = () => {
     <div className="flex h-full flex-col bg-walnut">
       {/* Logo / wordmark */}
       <div className="flex h-16 items-center justify-center border-b border-gold/15 px-6">
-        <img src="/logo.png" alt="Nrithya Degula" className="h-12 w-auto object-contain" />
+        <img src="/logo.png" alt="Nritya Degula" className="h-12 w-auto object-contain" />
       </div>
 
       {/* Navigation */}
@@ -123,9 +123,9 @@ const AdminLayout = () => {
             >
               {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
-            <img src="/logo.png" alt="Nrithya Degula" className="h-8 w-auto object-contain lg:hidden" />
+            <img src="/logo.png" alt="Nritya Degula" className="h-8 w-auto object-contain lg:hidden" />
             <span className="font-serif text-base tracking-[0.18em] text-cream/80 uppercase">
-              Nrithya Degula <span className="text-gold/60">·</span> Admin
+              Nritya Degula <span className="text-gold/60">·</span> Admin
             </span>
           </div>
           <span className="hidden text-xs tracking-[0.3em] text-cream/40 uppercase sm:block">

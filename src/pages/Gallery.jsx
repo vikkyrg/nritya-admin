@@ -68,7 +68,7 @@ const Gallery = () => {
           <div>
             <h1 className="font-serif text-4xl text-parchment">Gallery</h1>
             <p className="mt-1.5 max-w-xl text-sm text-cream/55">
-              Manage the images displayed in the Nrithya Degula website gallery.
+              Manage the images displayed in the Nritya Degula website gallery.
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -122,7 +122,7 @@ const Gallery = () => {
           </span>
           <h2 className="font-serif text-3xl text-parchment">Your Gallery is Empty</h2>
           <p className="mx-auto mt-2 max-w-md text-sm text-cream/55">
-            Upload images to display them in the Nrithya Degula website gallery.
+            Upload images to display them in the Nritya Degula website gallery.
           </p>
           <button
             onClick={openAdd}
@@ -166,7 +166,7 @@ const Gallery = () => {
                 <p className="mb-1 text-[11px] tracking-[0.4em] text-gold uppercase">Website Preview</p>
                 <h2 className="font-serif text-3xl tracking-[0.06em] text-goldlight uppercase">Our Gallery</h2>
                 <p className="mx-auto mt-2 max-w-md text-xs text-cream/50">
-                  How these images appear in the gallery section of the Nrithya Degula website.
+                  How these images appear in the gallery section of the Nritya Degula website.
                 </p>
               </div>
               <div className="gold-divider mb-6">

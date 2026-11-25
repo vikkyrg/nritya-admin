@@ -33,7 +33,7 @@ const Dashboard = () => {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
       <div className="animate-fade-up">
         <p className="mb-2 text-xs tracking-[0.4em] text-gold uppercase">Welcome</p>
-        <h1 className="font-serif text-4xl text-parchment">Welcome to Nrithya Degula</h1>
+        <h1 className="font-serif text-4xl text-parchment">Welcome to Nritya Degula</h1>
         <p className="mt-1.5 max-w-xl text-sm text-cream/55">
           Manage website enquiries, registrations, and gallery showcases.
         </p>
@@ -62,9 +62,13 @@ const Dashboard = () => {
               <span className="text-xs tracking-[0.2em] text-cream/55 uppercase">Total Enquiries</span>
               <Inbox size={18} strokeWidth={1.4} className="text-gold/80" />
             </div>
-            <p className="mt-3 font-serif text-4xl text-goldlight">
-              {enquiryLoading ? '—' : enquiryStats.total}
-            </p>
+            <div className="mt-3 h-10 flex items-center">
+              {enquiryLoading ? (
+                <div className="h-8 w-16 animate-pulse rounded bg-gold/15" />
+              ) : (
+                <p className="font-serif text-4xl text-goldlight">{enquiryStats.total}</p>
+              )}
+            </div>
             <p className="mt-2 text-xs text-cream/40 transition-colors group-hover:text-goldlight">
               Manage enquiries →
             </p>
@@ -78,9 +82,13 @@ const Dashboard = () => {
               <span className="text-xs tracking-[0.2em] text-amber-300 uppercase">New Enquiries</span>
               <Clock size={18} strokeWidth={1.4} className="text-amber-400" />
             </div>
-            <p className="mt-3 font-serif text-4xl text-amber-200">
-              {enquiryLoading ? '—' : enquiryStats.New}
-            </p>
+            <div className="mt-3 h-10 flex items-center">
+              {enquiryLoading ? (
+                <div className="h-8 w-16 animate-pulse rounded bg-amber-400/15" />
+              ) : (
+                <p className="font-serif text-4xl text-amber-200">{enquiryStats.New}</p>
+              )}
+            </div>
             <p className="mt-2 text-xs text-amber-300/50 transition-colors group-hover:text-amber-300">
               Needs response →
             </p>
@@ -94,9 +102,13 @@ const Dashboard = () => {
               <span className="text-xs tracking-[0.2em] text-sky-300 uppercase">Contacted</span>
               <Phone size={18} strokeWidth={1.4} className="text-sky-400" />
             </div>
-            <p className="mt-3 font-serif text-4xl text-sky-200">
-              {enquiryLoading ? '—' : enquiryStats.Contacted}
-            </p>
+            <div className="mt-3 h-10 flex items-center">
+              {enquiryLoading ? (
+                <div className="h-8 w-16 animate-pulse rounded bg-sky-400/15" />
+              ) : (
+                <p className="font-serif text-4xl text-sky-200">{enquiryStats.Contacted}</p>
+              )}
+            </div>
             <p className="mt-2 text-xs text-sky-300/50 transition-colors group-hover:text-sky-300">
               In follow-up →
             </p>
@@ -110,9 +122,13 @@ const Dashboard = () => {
               <span className="text-xs tracking-[0.2em] text-emerald-300 uppercase">Converted</span>
               <CheckCheck size={18} strokeWidth={1.4} className="text-emerald-400" />
             </div>
-            <p className="mt-3 font-serif text-4xl text-emerald-200">
-              {enquiryLoading ? '—' : enquiryStats.Converted}
-            </p>
+            <div className="mt-3 h-10 flex items-center">
+              {enquiryLoading ? (
+                <div className="h-8 w-16 animate-pulse rounded bg-emerald-400/15" />
+              ) : (
+                <p className="font-serif text-4xl text-emerald-200">{enquiryStats.Converted}</p>
+              )}
+            </div>
             <p className="mt-2 text-xs text-emerald-300/50 transition-colors group-hover:text-emerald-300">
               Enrolled students →
             </p>
@@ -134,9 +150,13 @@ const Dashboard = () => {
               <span className="text-xs tracking-[0.25em] text-cream/55 uppercase">Gallery Images</span>
               <Images size={18} strokeWidth={1.4} className="text-gold/80" />
             </div>
-            <p className="mt-3 font-serif text-4xl text-goldlight">
-              {galleryLoading ? '—' : galleryStats.total}
-            </p>
+            <div className="mt-3 h-10 flex items-center">
+              {galleryLoading ? (
+                <div className="h-8 w-16 animate-pulse rounded bg-gold/15" />
+              ) : (
+                <p className="font-serif text-4xl text-goldlight">{galleryStats.total}</p>
+              )}
+            </div>
             <p className="mt-2 text-xs text-cream/40 transition-colors group-hover:text-goldlight">
               Manage images →
             </p>
@@ -150,9 +170,13 @@ const Dashboard = () => {
               <span className="text-xs tracking-[0.25em] text-cream/55 uppercase">Active Images</span>
               <Eye size={18} strokeWidth={1.4} className="text-gold/80" />
             </div>
-            <p className="mt-3 font-serif text-4xl text-goldlight">
-              {galleryLoading ? '—' : galleryStats.active}
-            </p>
+            <div className="mt-3 h-10 flex items-center">
+              {galleryLoading ? (
+                <div className="h-8 w-16 animate-pulse rounded bg-gold/15" />
+              ) : (
+                <p className="font-serif text-4xl text-goldlight">{galleryStats.active}</p>
+              )}
+            </div>
             <p className="mt-2 text-xs text-cream/40 transition-colors group-hover:text-goldlight">
               Manage visibility →
             </p>

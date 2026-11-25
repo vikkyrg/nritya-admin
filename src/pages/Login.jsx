@@ -28,8 +28,8 @@ const Login = () => {
       <div className="w-full max-w-md animate-fade-up">
         {/* Wordmark */}
         <div className="mb-10 text-center">
-          <img src="/logo.png" alt="Nrithya Degula" className="mx-auto mb-6 h-16 w-auto object-contain" />
-          <h1 className="font-serif text-4xl tracking-[0.14em] text-goldlight">NRITHYA DEGULA</h1>
+          <img src="/logo.png" alt="Nritya Degula" className="mx-auto mb-6 h-16 w-auto object-contain" />
+          <h1 className="font-serif text-4xl tracking-[0.14em] text-goldlight">NRITYA DEGULA</h1>
           <p className="mt-2 text-xs tracking-[0.5em] text-cream/45 uppercase">School of Dance · Admin</p>
         </div>
 
@@ -53,7 +53,7 @@ const Login = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@nrithyadegula.com"
+                placeholder="admin@nrityadegula.com"
                 className="gold-ring w-full rounded-md border border-gold/25 bg-cocoa/60 py-3 pr-4 pl-11 text-sm text-cream transition-colors placeholder:text-cream/30 focus:border-gold/60"
               />
             </div>
@@ -92,7 +92,7 @@ const Login = () => {
         </form>
 
         <p className="mt-10 text-center text-xs text-cream/35">
-          Nrithya Degula School of Dance · Gallery Management
+          Nritya Degula School of Dance · Gallery Management
         </p>
       </div>
     </div>
